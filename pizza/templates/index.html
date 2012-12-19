@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hello world</title>
+</head>
+<body>
+	<ul>
+		{% for pizza in pizza_list %}
+		<li>
+			{{ pizza.name }}
+		</li>
+		{% endfor %}
+	</ul>
+</body>
+</html>
