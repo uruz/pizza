@@ -1,2 +1,6 @@
 *.py[oc]
+*.*project*
+*.idea
+*.~*
+
 
