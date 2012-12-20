@@ -40,6 +40,9 @@ class Order(models.Model):
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
 
+    def __unicode__(self):
+        return u'Address: %s' % self.address
+
 class OrderItem(models.Model):
     pizza = models.ForeignKey(Pizza, blank=True, null=True, 
         verbose_name = 'Pizza')

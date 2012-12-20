@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+<title>{% block title %}Hello world{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}" />
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-responsive.css' %}" />
+<script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+
+</head>
+<body>
+    <div class="container">
+        {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{message}}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        <div class="row">
+            <div class="span12">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

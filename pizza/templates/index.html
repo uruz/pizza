@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Hello world</title>
-</head>
-<body>
-	<ul>
-		{% for pizza in pizza_list %}
-		<li>
-			{{ pizza.name }}
-		</li>
-		{% endfor %}
-	</ul>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Was Mayans right?{% endblock %}
+
+{% block content %}
+<a href="{% url 'Order' %}">Order pizza</a>
+
+<ul class="unstyled">
+    {% for pizza in pizza_list %}
+    <li>
+        {{ pizza.name }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

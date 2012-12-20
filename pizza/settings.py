@@ -113,6 +113,7 @@ INSTALLED_APPS = (
     'pizza',
     'south',
     'django_extensions',
+    'crispy_forms',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
