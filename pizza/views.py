@@ -11,6 +11,7 @@ from django.contrib import messages
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from django.core.urlresolvers import reverse_lazy
+from .forms import OrderForm
 
 class PizzaListView(ListView):
     model = Pizza
@@ -24,26 +25,6 @@ class MargaritaPizzaListView(PizzaListView):
         return super(MargaritaPizzaListView, self).get_queryset().filter(name__icontains = 'аргарита')
 
 margo = MargaritaPizzaListView.as_view()
-
-class CreateOrderForm(forms.Form):
-    comment = forms.CharField(label = 'Comment')
-
-class OrderForm(forms.ModelForm):
-    comment = forms.CharField(label = 'Comment', widget = forms.Textarea(attrs={'cols':'10', 'rows':'10'}))
-    class Meta:
-        model = Order
-        fields = ('address',)
-
-    def __init__(self, *args, **kwargs):
-        super(OrderForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_method = 'post'
-        self.helper.form_action = 'Order'
-        self.helper.add_input(Submit('', 'Submit'))
-
-    def save(self, *args, **kwargs):
-        self.instance.deliveryman = Deliveryman.objects.get(name = 'user1')
-        return super(OrderForm, self).save(*args, **kwargs)
 
 class CreateOrderView(CreateView):
     model = Order

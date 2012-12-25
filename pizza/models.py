@@ -1,22 +1,25 @@
+#coding: utf-8
+from __future__ import unicode_literals
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 class Pizza(models.Model):
-    name = models.CharField('Name', max_length=255, default='')
+    name = models.CharField(_('Name'), max_length=255, default='')
     components = models.ManyToManyField('Component', null=True, blank=True)
 
     class Meta:
-        verbose_name = 'Pizza'
-        verbose_name_plural = 'Pizzas'
+        verbose_name = _('Pizza')
+        verbose_name_plural = _('Pizzas')
 
     def __unicode__(self):
         return self.name
 
 class Component(models.Model):
-    name = models.CharField('Name', max_length=255, default='')
+    name = models.CharField(_('Name'), max_length=255, default='')
 
     class Meta:
-        verbose_name = 'Pizza component'
-        verbose_name_plural = 'Pizza components'
+        verbose_name = _('Pizza component')
+        verbose_name_plural = _('Pizza components')
 
     def __unicode__(self):
         return self.name
@@ -33,7 +36,16 @@ class Deliveryman(models.Model):
         return self.name
 
 class Order(models.Model):
-    address = models.TextField('Address', default='')
+    MOSCOW, WARSAW, PENZA, IRKUTSK = range(4)
+    CITIES = (
+        (MOSCOW, _('Moscow')),
+        (WARSAW, _('Warsaw')),
+        (PENZA, _('Penza')),
+        (IRKUTSK, _('Irkutsk')),
+    )
+    city = models.PositiveSmallIntegerField(_('City'),
+        choices = CITIES, default=PENZA)
+    address = models.TextField(_('Address'), default='', blank=True)
     deliveryman = models.ForeignKey(Deliveryman, blank=True, null=True)
 
     class Meta:

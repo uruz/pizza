@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 
 {% block content %}
+    {% trans "Hello" %}
+    {% blocktrans %}
+        Hello! Please order a piece of pizza and get delivery for free!
+    {% endblocktrans %}
     {% crispy form form.helper %}
 {% endblock %}
