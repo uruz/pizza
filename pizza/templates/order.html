@@ -7,5 +7,10 @@
     {% blocktrans %}
         Hello! Please order a piece of pizza and get delivery for free!
     {% endblocktrans %}
-    {% crispy form form.helper %}
+    <form action="{% url 'Order' %}" method="post">
+        {% csrf_token %}
+        {{ form.formset|crispy }}
+        {{ form|crispy }}
+        <input type="submit" /> 
+    </form>
 {% endblock %}

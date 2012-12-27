@@ -8,7 +8,10 @@ from django.utils.translation import ugettext_lazy
 from django.core.urlresolvers import reverse
 
 class SimpleTest(TestCase):
+    fixtures = ['dump']
+
     def setUp(self):
+        Order.objects.get(address = 'Moscow')
         self.order = Order()
         self.order.city = Order.IRKUTSK
         self.client = Client()

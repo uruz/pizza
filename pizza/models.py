@@ -2,6 +2,11 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.dispatch.dispatcher import receiver
+from django.db.models.signals import post_save
+from django.utils.timezone import now
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.generic import GenericForeignKey
 
 class Pizza(models.Model):
     name = models.CharField(_('Name'), max_length=255, default='')
@@ -65,3 +70,21 @@ class OrderItem(models.Model):
         verbose_name = 'Order item'
         verbose_name_plural = 'Order items'
 
+class PizzaLogEntry(models.Model):
+    object_id = models.PositiveIntegerField('Object id', default=0)
+    content_type = models.ForeignKey(ContentType, null=True, blank=False)
+    date = models.DateTimeField('Date', null=True, default=now)
+
+    related_object = GenericForeignKey()
+
+    class Meta:
+        verbose_name = 'Log Entry'
+
+
+@receiver(post_save)
+def order_post_save(sender, instance, **kwargs):
+    if sender != PizzaLogEntry:
+        PizzaLogEntry.objects.create(
+            object_id = instance.id, 
+            content_type = ContentType.objects.get_for_model(sender))
+    

@@ -1,6 +1,6 @@
 #coding: utf-8
 from __future__ import unicode_literals
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.views.generic import ListView, CreateView
 from .models import Pizza, Order, Deliveryman
@@ -31,6 +31,23 @@ class CreateOrderView(CreateView):
     form_class = OrderForm
     template_name = 'order.html'
     success_url = reverse_lazy('home')
+
+    def get_form_kwargs(self):
+        kwargs = super(CreateOrderView, self).get_form_kwargs()
+        kwargs.update({
+            'request': self.request
+        })
+        return kwargs
+
+    def form_valid(self, form):
+        if form.is_valid() and form.formset.is_valid():
+            self.object = form.save()
+            form.formset.instance = self.object
+            form.formset.save()
+            return HttpResponseRedirect(self.get_success_url()) 
+        else:
+            return self.form_invalid(form)
+            #return self.render_to_response(self.get_context_data())
 
 create_order = CreateOrderView.as_view()
 

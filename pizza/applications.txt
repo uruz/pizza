@@ -1,0 +1,15 @@
+sorl-thumbnail
+easythumbnails
+naturalcropping
+PIL, Pillow
+getsentry.com raven sentry
+celery django-celery
+django-filter
+django-appconf
+django-social-auth
+django-debug-toolbar
+django-mptt
+feincms
+
+http://djangopackages.com/
+

@@ -1,0 +1,2 @@
+{% for order in orders %}{{ order.address }}
+{% endfor %}
